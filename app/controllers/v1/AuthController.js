@@ -1,10 +1,10 @@
 const UserModel = reqlib("app/models/UserModel")
 const { check } = require("express-validator");
+const moment = require('moment')
+const jwt = require("jsonwebtoken");
+const bcrypt = require('bcryptjs')
 
 module.exports = {
-    login(req, res) {
-        res.send('login')
-    },
     registerValidator: [
         check("first_name")
             .trim()
@@ -68,5 +68,46 @@ module.exports = {
         await user.save();
 
         return Responder.success(res, null);
-    }
+    },
+    loginValidator: [
+        check("email")
+            .trim()
+            .not()
+            .isEmpty()
+            .withMessage("Enter Email")
+            .isEmail()
+            .withMessage("Enter valid email")
+            .custom(async function (value) {
+                const user = await UserModel.findOne({ email: value });
+                if (!user) {
+                    return Promise.reject("Kindly register first");
+                }
+            }),
+        check("password")
+            .trim()
+            .not()
+            .isEmpty()
+            .withMessage("Enter password")
+    ],
+    async login(req, res) {
+        const user = await UserModel.findOne({ email: req.body.email });
+
+        if (!bcrypt.compareSync(req.body.password, user.password)) {
+            return Responder.unauthorized(res, "Invalid credentials");
+        }
+
+        const token = jwt.sign({ sub: user._id }, process.env.JWT_SECRET, {
+            expiresIn: process.env.JWT_EXPIRY,
+            notBefore: process.env.JWT_NOT_BEFORE
+        });
+
+        const expires_at = moment()
+            .add(
+                process.env.JWT_EXPIRY_MOMENT_MAGNITUDE,
+                process.env.JWT_EXPIRY_MOMENT_UNIT
+            )
+            .toISOString();
+
+        return Responder.success(res, { token, expires_at });
+    },
 }
