@@ -13,6 +13,11 @@ module.exports = {
                 response.status = false;
                 break;
 
+            case 403:
+                response.message = data;
+                response.status = false;
+                break;
+
             case 404:
                 response.message = data;
                 response.status = false;
@@ -41,5 +46,9 @@ module.exports = {
 
     unauthorized(res, message = "unauthorized") {
         this.respond(res, message, 401);
+    },
+
+    forbidden(res, message = "forbidden") {
+        this.respond(res, message, 403);
     }
 };
