@@ -16,3 +16,8 @@ require("./global");
 // express
 const express = require("express");
 const app = express();
+
+// server
+const server = app.listen(process.env.SERVER_PORT, function () {
+    console.log(`server started on port ${process.env.SERVER_PORT}`);
+});
