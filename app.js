@@ -9,3 +9,10 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
     console.log('connected to db')
 });
+
+// global
+require("./global");
+
+// express
+const express = require("express");
+const app = express();
