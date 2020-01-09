@@ -2,9 +2,10 @@
   "name": "mern-mentors-task",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/neelbhanushali/mern-mentors-task/issues"
   },
-  "homepage": "https://github.com/neelbhanushali/mern-mentors-task#readme"
+  "homepage": "https://github.com/neelbhanushali/mern-mentors-task#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.8.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }
