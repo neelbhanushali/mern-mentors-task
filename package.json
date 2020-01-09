@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "apidoc": {
+    "title": "MERN Mentor Task",
+    "url": "/",
+    "sampleUrl": "/"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon"
+    "start": "nodemon -i public",
+    "apidoc": "apidoc -i apidocs -o public/apidocs"
   },
   "repository": {
     "type": "git",
@@ -20,12 +26,18 @@
   "homepage": "https://github.com/neelbhanushali/mern-mentors-task#readme",
   "dependencies": {
     "app-root-path": "^3.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-list-endpoints": "^4.0.1",
+    "express-validator": "^6.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
     "mongoose": "^5.8.6"
   },
   "devDependencies": {
+    "apidoc": "^0.19.1",
     "nodemon": "^2.0.2"
   }
 }
