@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/neelbhanushali/mern-mentors-task/issues"
   },
-  "homepage": "https://github.com/neelbhanushali/mern-mentors-task#readme"
+  "homepage": "https://github.com/neelbhanushali/mern-mentors-task#readme",
+  "dependencies": {
+    "mongoose": "^5.8.6"
+  }
 }
