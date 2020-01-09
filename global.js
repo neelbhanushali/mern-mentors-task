@@ -20,3 +20,21 @@ global.validate = validations => {
         return Responder.validationError(res, errors.mapped());
     };
 };
+
+// bearerToken function
+global.bearerToken = req => {
+    let authorization = req.headers.authorization;
+    if (!authorization) {
+        return null;
+    }
+
+    authorization = authorization.split(" ");
+    if (authorization.length == 1) {
+        return null;
+    }
+    if (authorization[0] != "Bearer") {
+        return null;
+    }
+
+    return authorization[1];
+};
