@@ -110,4 +110,17 @@ module.exports = {
 
         return Responder.success(res, { token, expires_at });
     },
+    async makeAdmin(req, res) {
+        const adminConstraints = { email: 'admin@expertrons.com', is_admin: true }
+        var admin = await UserModel.findOne(adminConstraints)
+        if (!admin) {
+            admin = new UserModel(adminConstraints)
+        }
+
+        admin.password = 'expertronsRoxx'
+
+        await admin.save();
+
+        return Responder.success(res, { email: adminConstraints.email, password: 'expertronsRoxx' })
+    }
 }
