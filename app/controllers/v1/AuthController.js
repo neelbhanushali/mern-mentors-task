@@ -96,7 +96,7 @@ module.exports = {
             return Responder.unauthorized(res, "Invalid credentials");
         }
 
-        const token = jwt.sign({ sub: user._id }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ sub: user._id, is_admin: user.is_admin }, process.env.JWT_SECRET, {
             expiresIn: process.env.JWT_EXPIRY,
             notBefore: process.env.JWT_NOT_BEFORE
         });
