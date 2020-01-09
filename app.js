@@ -17,7 +17,12 @@ require("./global");
 const express = require("express");
 const app = express();
 
+// routing
+app.use("/", reqlib("routes"));
+
 // server
 const server = app.listen(process.env.SERVER_PORT, function () {
     console.log(`server started on port ${process.env.SERVER_PORT}`);
+    const listEndpoints = require("express-list-endpoints");
+    console.table(listEndpoints(app));
 });
