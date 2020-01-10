@@ -16,6 +16,12 @@ module.exports = {
             .withMessage("Enter user id")
     ],
     async create(req, res) {
+        if (!ObjectId.isValid(req.body.user)) {
+            return Responder.validationError(res, {
+                user: "User id not valid"
+            });
+        }
+
         const task = new TaskModel({
             task: req.body.task,
             user: req.body.user,
