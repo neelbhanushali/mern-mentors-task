@@ -62,7 +62,7 @@ module.exports = {
             last_name: req.body.last_name,
             dob: req.body.dob,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password ? req.body.password : 'asdfasdf'
         });
 
         await user.save();

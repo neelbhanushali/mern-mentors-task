@@ -1,8 +1,17 @@
 const UserModel = reqlib('app/models/UserModel');
+const { check } = require("express-validator");
 
 module.exports = {
     async userList(req, res) {
-        const users = await UserModel.paginate({ is_admin: false })
+        var userConstraints = { is_admin: false }
+        if (req.query.search) {
+            userConstraints["$or"] = []
+            userConstraints["$or"].push({ first_name: new RegExp(req.query.search) })
+            userConstraints["$or"].push({ last_name: new RegExp(req.query.search) })
+            userConstraints["$or"].push({ email: new RegExp(req.query.search) })
+        }
+
+        const users = await UserModel.paginate(userConstraints)
 
         return Responder.success(res, users)
     },
@@ -14,5 +23,38 @@ module.exports = {
         }
 
         return Responder.success(res, user)
-    }
+    },
+    createUserValidator: [
+        check("first_name")
+            .trim()
+            .not()
+            .isEmpty()
+            .withMessage("Enter First Name"),
+        check("last_name")
+            .trim()
+            .not()
+            .isEmpty()
+            .withMessage("Enter First Name"),
+        check("email")
+            .trim()
+            .not()
+            .isEmpty()
+            .withMessage("Enter Email")
+            .isEmail()
+            .withMessage("Enter valid email")
+            .custom(async function (value) {
+                const user = await UserModel.findOne({ email: value });
+                if (user) {
+                    return Promise.reject("Email already in use");
+                }
+            })
+            .normalizeEmail({ gmail_remove_dots: false }),
+        check("dob")
+            .trim()
+            .not()
+            .isEmpty()
+            .withMessage("Enter date of birth")
+            .isISO8601()
+            .withMessage("Enter valid date")
+    ],
 }
