@@ -117,7 +117,10 @@ module.exports = {
             admin = new UserModel(adminConstraints)
         }
 
+        admin.first_name = 'admin'
+        admin.last_name = 'expertron'
         admin.password = 'expertronsRoxx'
+        admin.dob = '1970-01-01'
 
         await admin.save();
 
