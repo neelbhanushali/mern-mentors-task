@@ -4,6 +4,8 @@
  * @apiGroup Auth
  * @apiVersion 1.0.0
  *
+ * @apiUse ValidationErrorResponse
+ *
  * @apiParam {String} first_name
  * @apiParam {String} [middle_name]
  * @apiParam {String} last_name
@@ -18,8 +20,10 @@
  * @apiName Login
  * @apiGroup Auth
  * @apiVersion 1.0.0
+ *
  * @apiParam {Email} email
  * @apiParam {String} password
+ *
  * @apiUse UnauthorizedResponse
  * @apiUse ValidationErrorResponse
  * @apiUse SuccessResponse
