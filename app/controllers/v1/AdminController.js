@@ -1,5 +1,6 @@
 const UserModel = reqlib('app/models/UserModel');
 const { check } = require("express-validator");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 module.exports = {
     async userList(req, res) {
@@ -16,6 +17,12 @@ module.exports = {
         return Responder.success(res, users)
     },
     async showUser(req, res) {
+        if (!ObjectId.isValid(req.params.id)) {
+            return Responder.validationError(res, {
+                id: "User id not valid"
+            });
+        }
+
         const user = await UserModel.findOne({ _id: req.params.id })
 
         if (!user) {
@@ -58,6 +65,12 @@ module.exports = {
             .withMessage("Enter valid date")
     ],
     async deleteUser(req, res) {
+        if (!ObjectId.isValid(req.params.id)) {
+            return Responder.validationError(res, {
+                id: "User id not valid"
+            });
+        }
+
         if (req.params.id == res.locals.decoded.sub) {
             return Responder.validationError(res, 'Why would you want to delete yourself?')
         }
