@@ -19,7 +19,7 @@ module.exports = {
         const user = await UserModel.findOne({ _id: req.params.id })
 
         if (!user) {
-            return Responder.notfound(res, 'User not found')
+            return Responder.notFound(res, 'User not found')
         }
 
         return Responder.success(res, user)
@@ -57,4 +57,19 @@ module.exports = {
             .isISO8601()
             .withMessage("Enter valid date")
     ],
+    async deleteUser(req, res) {
+        if (req.params.id == res.locals.decoded.sub) {
+            return Responder.validationError(res, 'Why would you want to delete yourself?')
+        }
+
+        const user = await UserModel.findOne({ _id: req.params.id })
+
+        if (!user) {
+            return Responder.notFound(res, 'User not found')
+        }
+
+        await user.remove()
+
+        return Responder.success(res, 'User deleted')
+    }
 }

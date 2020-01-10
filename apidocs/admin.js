@@ -40,3 +40,17 @@
  * @apiParam {Date} dob
  * @apiParam {Email} email
  */
+
+/**
+ * @api {DELETE} api/v1/admin/users/:id Delete user
+ * @apiName Delete user
+ * @apiGroup Admin
+ * @apiVersion 1.0.0
+ *
+ * @apiUse AuthHeader
+ *
+ * @apiParam {String} id
+ *
+ * @apiUse SuccessResponse
+ * @apiSuccess {Object} data
+ */
