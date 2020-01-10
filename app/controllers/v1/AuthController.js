@@ -58,11 +58,11 @@ module.exports = {
     async register(req, res) {
         const user = new UserModel({
             first_name: req.body.first_name,
-            middle_name: req.body.middle_name ? req.body.middle_name : null,
+            middle_name: req.body.middle_name || null,
             last_name: req.body.last_name,
             dob: req.body.dob,
             email: req.body.email,
-            password: req.body.password ? req.body.password : 'asdfasdf'
+            password: req.body.password || 'asdfasdf'
         });
 
         await user.save();
