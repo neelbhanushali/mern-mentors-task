@@ -62,7 +62,7 @@ module.exports = {
             last_name: req.body.last_name,
             dob: req.body.dob,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password ? req.body.password : 'asdfasdf'
         });
 
         await user.save();
@@ -96,7 +96,7 @@ module.exports = {
             return Responder.unauthorized(res, "Invalid credentials");
         }
 
-        const token = jwt.sign({ sub: user._id }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ sub: user._id, is_admin: user.is_admin }, process.env.JWT_SECRET, {
             expiresIn: process.env.JWT_EXPIRY,
             notBefore: process.env.JWT_NOT_BEFORE
         });
@@ -117,7 +117,10 @@ module.exports = {
             admin = new UserModel(adminConstraints)
         }
 
+        admin.first_name = 'admin'
+        admin.last_name = 'expertron'
         admin.password = 'expertronsRoxx'
+        admin.dob = '1970-01-01'
 
         await admin.save();
 

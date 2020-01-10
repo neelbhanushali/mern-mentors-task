@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const UserSchema = new Schema(
     {
@@ -34,6 +35,8 @@ UserSchema.pre("save", function (next) {
     this.password = bcrypt.hashSync(this.password, 10);
     next();
 });
+
+UserSchema.plugin(mongoosePaginate);
 
 const UserModel = mongoose.model("User", UserSchema);
 
