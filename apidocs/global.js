@@ -29,4 +29,6 @@
  * @apiHeader {String} Authorization Bearer token
  * @apiError (Error 401) {Boolean} status=false
  * @apiError (Error 401) {message} message=unauthorized
+ * @apiError (Error 403) {Boolean} status=false
+ * @apiError (Error 403) {message} message=forbidden
  */
