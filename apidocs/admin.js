@@ -63,7 +63,7 @@
  * @apiGroup Admin
  * @apiVersion 1.0.0
  *
- * @apiParam {String} todo
+ * @apiParam {String} task
  * @apiParam {String} [description]
  * @apiParam {String} user user id
  *
@@ -71,4 +71,17 @@
  * @apiUse ValidationErrorResponse
  * @apiUse SuccessResponse
  * @apiSuccess {String} data=null
+ */
+
+/**
+ * @api {GET} api/v1/admin/users/:id/tasks Get tasks for user
+ * @apiName Get tasks for user
+ * @apiGroup Admin
+ * @apiVersion 1.0.0
+ *
+ * @apiParam {String} user user id
+ *
+ * @apiUse AuthHeader
+ * @apiUse ValidationErrorResponse
+ * @apiUse SuccessResponse
  */

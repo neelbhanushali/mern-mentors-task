@@ -32,4 +32,18 @@ module.exports = {
 
         Responder.success(res, null);
     },
+    async list(req, res) {
+        if (!ObjectId.isValid(req.params.id)) {
+            return Responder.validationError(res, {
+                user: "User id not valid"
+            });
+        }
+
+        const tasks = await TaskModel.find(
+            { user: req.params.id },
+            { is_complete: 1, task: 1, description: 1, created_at: 1 }
+        ).sort("-created_at");
+
+        Responder.success(res, tasks);
+    },
 }

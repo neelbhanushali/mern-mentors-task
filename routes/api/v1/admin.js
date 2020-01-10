@@ -9,5 +9,6 @@ router.get("/users/:id", AdminController.showUser)
 router.delete("/users/:id", AdminController.deleteUser)
 
 router.post("/users/:id/tasks", TaskController.create)
+router.get("/users/:id/tasks", TaskController.list)
 
 module.exports = router;
