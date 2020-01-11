@@ -29,6 +29,8 @@
  * @apiVersion 1.0.0
  *
  * @apiUse AuthHeader
+ * 
+ * @apiParam {String} id
  *
  * @apiUse ValidationErrorResponse
  * @apiUse SuccessResponse
