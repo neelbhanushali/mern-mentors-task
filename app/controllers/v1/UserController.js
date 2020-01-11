@@ -1,5 +1,6 @@
 const UserModel = reqlib('app/models/UserModel');
 const TaskModel = reqlib('app/models/TaskModel');
+const ObjectId = require("mongoose").Types.ObjectId;
 
 module.exports = {
     async profile(req, res) {
@@ -17,5 +18,23 @@ module.exports = {
         ).sort("-created_at");
 
         Responder.success(res, tasks);
+    },
+    async markTaskComplete(req, res) {
+        if (!ObjectId.isValid(req.params.id)) {
+            return Responder.validationError(res, {
+                id: "Task id not valid"
+            });
+        }
+
+        const task = await TaskModel.findOne({ _id: req.params.id })
+
+        if (!task) {
+            return Responder.notFound(res, 'Task not found')
+        }
+
+        task.is_complete = true
+        await task.save()
+
+        return Responder.success(res, null)
     }
 }
